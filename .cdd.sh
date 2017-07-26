@@ -3,10 +3,11 @@
 export PATHFILE="$HOME/.cddpaths"
 
 cdd() {
-   local dest_dir=$(cat $PATHFILE | fzf )
-   if [[ $dest_dir != '' ]]; then
-      cd "$dest_dir"
-   fi
+    touch $PATHFILE
+    local dest_dir=$(cat $PATHFILE | fzf )
+    if [[ $dest_dir != '' ]]; then
+        cd "$dest_dir"
+    fi
 }
 export -f cdd > /dev/null
 
@@ -25,6 +26,5 @@ export -f cda > /dev/null
 cdrm() {
     echo '  ==== cdd - deleting: ' `pwd`
     sed -i -e "s|^$(pwd)$||" -e "/^$/ d" $PATHFILE
-
 }
 export -f cdrm > /dev/null
